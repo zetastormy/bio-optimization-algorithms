@@ -27,7 +27,7 @@ def seleccion_tournament(n, poblacion):
         padres.append(padre)
     return padres
 
-def cruzar(padre1, padre2, prob_cruce):
+def cruzar(padre1, padre2, prob_cruce=0.3):
     if random.random() < prob_cruce:
         hijo_x = (padre1[0], padre2[1])
         if random.random() > 0.2:
@@ -64,11 +64,13 @@ for gen in range(generaciones):
     nueva_poblacion = []
     for _ in range(tamano_poblacion):
         #padre1, padre2 = seleccion_ruleta(poblacion, valores_objetivo)
-        padre1, padre2 = seleccion_tournament(6, poblacion)
+        padre1, padre2 = seleccion_tournament(10, poblacion)
         
-        hijo = cruzar(padre1, padre2)
-        hijo_mutado = mutar(hijo,0.1)
-        nueva_poblacion.append(hijo_mutado)
+        hijo1, hijo2 = cruzar(padre1, padre2, 0.6)
+        hijo_mutado_1= mutar(hijo1,0.1)
+        hijo_mutado_2= mutar(hijo2,0.1)
+        nueva_poblacion.append(hijo_mutado_1)
+        nueva_poblacion.append(hijo_mutado_2)
 
     poblacion = nueva_poblacion
 
